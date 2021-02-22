@@ -1,5 +1,6 @@
 import React from 'react'
 import CourseRow from "./course-row";
+import {Link} from "react-router-dom";
 
 export default class CourseTable
     extends React.Component {
@@ -13,16 +14,17 @@ export default class CourseTable
     render() {
         return(
             <div>
+                <Link to="/courses/grid">
+                    <i className="fas fa-2x fa-th float-right"></i>
+                </Link>
                 <h2>CourseTable</h2>
 
                 <table className="table">
                     <tbody>
-                    {/*<CourseRow title="CS1234" owner="Alice" lastModified={"1/2/34"}/>*/}
-                    {/*<CourseRow title="CS2234" owner="BOB" lastModified={"22/2/34"}/>*/}
-                    {/*<CourseRow title="CS3234" owner="CC" lastModified={"33/2/34"}/>*/}
                     {
                         this.props.courses.map((course, ndx) =>
                         <CourseRow
+                            updateCourse={this.props.updateCourse}
                             deleteCourse={this.props.deleteCourse}
                             key={ndx}
                             course={course}
