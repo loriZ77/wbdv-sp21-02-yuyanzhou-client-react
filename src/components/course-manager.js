@@ -4,10 +4,14 @@ import CourseGrid from "./course-grid";
 import CourseEditor from "./course-editor";
 import {Link, Route} from "react-router-dom";
 import courseService, {findAllCourses, deleteCourse} from "../services/course-service";
+import "./course-manager.style.client.css"
+
 
 class CourseManager extends React.Component {
     state = {
-        courses: []
+        courses: [],
+        courseName: ""
+
     }
 
     updateCourse = (course) => {
@@ -27,19 +31,27 @@ class CourseManager extends React.Component {
 
     addCourse = () => {
         const newCourse = {
-            title: "New Course",
+            title: this.state.courseName,
             owner: "New Owner",
             lastModified: "Never"
         }
         courseService.createCourse(newCourse)
-            .then(course => this.setState(
-                (prevState) => ({
-                    ...prevState,
-                    courses: [
-                        ...prevState.courses,
-                        course
-                    ]
-                })))
+            .then(actualCourse => {
+                this.state.courses.push(actualCourse)
+                this.setState(this.state)
+            })
+        this.setState({
+            courseName: ""
+        })
+        // courseService.createCourse(newCourse)
+        //     .then(course => this.setState(
+        //         (prevState) => ({
+        //             ...prevState,
+        //             courses: [
+        //                 ...prevState.courses,
+        //                 course
+        //             ]
+        //         })))
     }
 
     deleteCourse = (courseToDelete) => {
@@ -53,11 +65,40 @@ class CourseManager extends React.Component {
             })
     }
 
+    createTitle = (title) => {
+        this.setState({
+            courseName: title
+        })
+    }
+
+
     render() {
         return(
-            <div>
+            <div class="container-fluid">
+                <div className="wbdv-sticky-nav-bar">
+                    <div className="row">
+                        <div className="col-1">
+                            <i className="fa fa-bars fa-2x"></i>
+                        </div>
+
+                        <div className="col-2 d-none d-md-block">
+                            <h4>Course Manager</h4>
+                        </div>
+                        <div className="col-8">
+                            <input className="form-control"
+                                   placeholder="New Course Title"
+                                   value={this.state.courseName}
+                                   onChange={event => this.createTitle(event.target.value)}
+                            />
+                        </div>
+                        <div className="col-1">
+                            <i className="fa fa-plus fa-2x"
+                            onClick={this.addCourse}></i>
+                        </div>
+                    </div>
+                </div>
+
                 <h1>Course Manager</h1>
-                <button onClick={this.addCourse}>Add Course</button>
                 <Route path="/courses/table">
                     <CourseTable
                         updateCourse={this.updateCourse}
