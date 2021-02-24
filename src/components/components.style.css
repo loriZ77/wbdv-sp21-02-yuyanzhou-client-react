@@ -1,0 +1,28 @@
+.color-blue {
+    color: dodgerblue;
+}
+
+.color-red {
+    color: indianred;
+}
+
+.color-green {
+    color: darkseagreen;
+}
+
+.my-plus-stuck-at-bottom-right {
+
+    position: fixed;
+
+    right: 15px;
+
+    bottom: 15px;
+
+}
+
+.wbdv-float-top {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+}

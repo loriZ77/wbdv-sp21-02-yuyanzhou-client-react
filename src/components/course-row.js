@@ -38,12 +38,22 @@ const CourseRow = (
                         className="form-control"/>
                 }
             </td>
-            <td>{owner}</td>
-            <td>{lastModified}</td>
+            <td className="d-none d-md-table-cell">{owner}</td>
+            <td className="d-none d-lg-table-cell">{lastModified}</td>
             <td>
-                <i onClick={() => deleteCourse(course)} className="fas fa-trash"></i>
-                {!editing && <i onClick={() => setEditing(true)} className="fas fa-edit"></i>}
-                {editing && <i onClick={() => saveTitle()} className="fas fa-check"></i>}
+                {editing && <i onClick={() => {
+                deleteCourse(course)
+                setEditing(false)
+            }} className="fas fa-times mr-2 float-right color-red">
+            </i>}
+                {!editing && <i onClick={() => setEditing(true)}
+                className="fas fa-edit mr-2 float-right color-blue"/>}
+                {editing && <i onClick={() => saveTitle()}
+                className="fas fa-check mr-2 float-right color-green"/>}
+
+                {/*<i onClick={() => deleteCourse(course)} className="fas fa-trash"></i>*/}
+                {/*{!editing && <i onClick={() => setEditing(true)} className="fas fa-edit"></i>}*/}
+                {/*{editing && <i onClick={() => saveTitle()} className="fas fa-check"></i>}*/}
             </td>
         </tr>
         )

@@ -1,0 +1,14 @@
+.wbdv-bar-color {
+    background-color: grey;
+}
+
+.nav-tabs > li > a {
+    color: white;
+}
+
+.nav-pills > li > a {
+    color: white;
+}
+.wbdv-pill {
+    background-color: grey;
+}
