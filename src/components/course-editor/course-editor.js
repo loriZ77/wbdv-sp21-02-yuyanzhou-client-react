@@ -24,7 +24,7 @@ const CourseEditor = ({history}) => {
         <div>
             <h2>
                 <Link to={`/courses/${layout}`}>
-                    <i className="fas fa-arrow-left"></i>
+                    <i className="fas fa-arrow-left"/>
                 </Link>
                 Course Editor</h2>
             <div className="row">

@@ -12,10 +12,18 @@ function App() {
               <Route path="/" exact={true}>
                   <Home/>
               </Route>
-              <Route path="/courses">
-                  <CourseManager/>
+              <Route path="/courses/:layout" exact={true} component={CourseManager}>
+                  {/*<CourseManager/>*/}
               </Route>
 
+              <Route path={[
+                  "/courses/:layout/edit/:courseId",
+                  "/courses/:layout/edit/:courseId/:moduleId",
+                  "/courses/:layout/edit/:courseId/:moduleId/:lessonId"]}
+                     exact={true}
+                     render={(props) =>
+                         <CourseEditor {...props}/>}>
+              </Route>
           </div>
       </BrowserRouter>
   );
