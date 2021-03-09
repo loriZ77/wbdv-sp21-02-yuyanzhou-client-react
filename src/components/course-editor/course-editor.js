@@ -7,6 +7,7 @@ import {Link, useParams} from "react-router-dom"
 import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import lessonReducer from "../../reducers/lesson-reducer";
+import TopicPills from "./topic-pills";
 
 
 const reducer = combineReducers( {
@@ -32,7 +33,12 @@ const CourseEditor = ({history}) => {
                     <ModuleList/>
                 </div>
                 <div className="col-8">
-                    <LessonTabs/>
+                    <div className="row">
+                        <LessonTabs/>
+                    </div>
+                    <div className="row">
+                        <TopicPills/>
+                    </div>
                 </div>
             </div>
         </div>
