@@ -28,7 +28,7 @@ const CourseCard = (
                 <div className="card-body">
                     {
                         !editing &&
-                        <Link to="/courses/editor">
+                        <Link to={`/courses/grid/edit/${course._id}`}>
                             {course.title}
                         </Link>
                     }
