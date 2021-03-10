@@ -1,7 +1,7 @@
 import React from 'react'
 import CourseCard from "./course-card";
 import {Link} from "react-router-dom";
-import "./components.style.css";
+import "../components.style.css";
 
 const CourseGrid = (props) =>
 
