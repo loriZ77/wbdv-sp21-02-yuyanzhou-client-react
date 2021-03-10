@@ -8,11 +8,13 @@ import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import lessonReducer from "../../reducers/lesson-reducer";
 import TopicPills from "./topic-pills";
+import topicReducer from "../../reducers/topic-reducer";
 
 
 const reducer = combineReducers( {
     moduleReducer: moduleReducer,
-    lessonReducer: lessonReducer
+    lessonReducer: lessonReducer,
+    topicReducer: topicReducer
 })
 //const store = createStore(moduleReducer)
 const store = createStore(reducer)

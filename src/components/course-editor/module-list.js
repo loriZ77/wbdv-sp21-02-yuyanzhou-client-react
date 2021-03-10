@@ -4,7 +4,7 @@ import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom"
 import moduleService from "../../services/module-service"
 import lessonService from "../../services/lesson-service"
-
+import topicService from "../../services/topic-service"
 const ModuleList = (
     {
         myModules=[],
@@ -86,8 +86,8 @@ const dtpm = (dispatch) => {
                 .then(modules => dispatch({type: "FIND_MODULES_FOR_COURSE", modules: modules}))
             lessonService.findLessonsForModule(undefined)
                 .then(lessons => dispatch({type: "FIND_LESSONS", lessons: lessons}))
-            // topicService.findTopicsForLesson(undefined)
-            //     .then(topics => dispatch({type: "FIND_TOPICS_FOR_LESSON", topics: topics}))
+            topicService.findTopicsForLesson(undefined)
+                .then(topics => dispatch({type: "FIND_TOPICS", topics: topics}))
         }
     }
 }
