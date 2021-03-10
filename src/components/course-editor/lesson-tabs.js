@@ -4,6 +4,7 @@ import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom"
 import lessonService from "../../services/lesson-service"
 import moduleService from "../../services/module-service";
+import topicService from "../../services/topic-service";
 
 const LessonTabs = (
     {
@@ -60,6 +61,9 @@ const dtpm = (dispatch) => {
                     type: "FIND_LESSONS",
                     lessons: lessons
                 }))
+
+            topicService.findTopicsForLesson(undefined)
+                .then(topics => dispatch({type: "FIND_TOPICS", topics: topics}))
         },
         createLessonForModule: (moduleId)=> {
             lessonService.createLessonForModule(moduleId, {title: "New Lesson"})

@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom"
 import topicService from "../../services/topic-service"
-import lessonService from "../../services/lesson-service";
 
 const TopicPills = (
     {
@@ -18,7 +17,7 @@ const TopicPills = (
     }) => {
     const {layout, courseId, moduleId, lessonId, topicId} = useParams();
     useEffect(() => {
-        if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
+        if(lessonId !== "undefined" && typeof lessonId !== "undefined" && moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findTopicsForLesson(lessonId)
         }
     }, [lessonId])
@@ -71,14 +70,14 @@ const dtpm = (dispatch) => {
         },
 
         updateTopic: (topic) =>
-            lessonService.updateLessonForModule(topic._id, topic)
+            topicService.updateTopicForLesson(topic._id, topic)
                 .then(status => dispatch({
                     type: "UPDATE_TOPIC",
                     topic
                 })),
 
         deleteTopic: (topicToDelete) =>
-            lessonService.deleteLessonForModule(topicToDelete._id)
+            topicService.deleteTopicFoeLesson(topicToDelete._id)
                 .then(status => dispatch({
                     type: "DELETE_TOPIC",
                     topicToDelete
