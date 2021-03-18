@@ -11,11 +11,14 @@ import lessonReducer from "../../reducers/lesson-reducer";
 import TopicPills from "./topic-pills";
 import topicReducer from "../../reducers/topic-reducer";
 import courseService from "../../services/course-service"
+import WidgetList from "./widgets/widget-list";
+import widgetReducer from "../../reducers/widget-reducer";
 
 const reducer = combineReducers( {
     moduleReducer: moduleReducer,
     lessonReducer: lessonReducer,
-    topicReducer: topicReducer
+    topicReducer: topicReducer,
+    widgetReducer: widgetReducer
 })
 //const store = createStore(moduleReducer)
 const store = createStore(reducer)
@@ -46,9 +49,14 @@ const CourseEditor = (
                 <div className="col-8">
                     <div className="row">
                         <LessonTabs/>
+                        <br/>
                     </div>
                     <div className="row">
                         <TopicPills/>
+                    </div>
+                    <br/>
+                    <div className="row">
+                        <WidgetList/>
                     </div>
                 </div>
             </div>
