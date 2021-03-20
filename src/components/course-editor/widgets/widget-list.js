@@ -7,25 +7,54 @@ import ParagraphWidget from "./paragraph-widget";
 
 const WidgetList = ({
     widgets=[],
-    findAllWidgets
+    findWidgetsForTopic,
+    deleteWidget,
+    updateWidget,
+    createWidgetsForTopic
                     }) => {
+    const [editingWidget, setEditingWidget] = useState({});
     const {topicId} = useParams();
     useEffect(() => {
-        findAllWidgets(topicId)
+        console.log("widgets" + widgets);
+        findWidgetsForTopic(topicId)
+
     }, [topicId])
     return (
         <div>
-            <h2>Widget List # {widgets.length}</h2>
+            <h2>Widget List # {widgets.length} id: {editingWidget.id}</h2>
+            <i onClick={() => createWidgetsForTopic(topicId)} className="fas fa-plus fa-2x"/>
             <ul className="list-group"> {
                 widgets.map(widget =>
                     <li className="list-group-item" key={widget.id}>
                         {
+                            editingWidget.id === widget.id &&
+                                <>
+                                    <i onClick={() => {
+
+                                        updateWidget(widget)
+                                        setEditingWidget({})
+                                    }} className="fas fa-2x fa-check float-right"/>
+                                    <i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>
+                                </>
+                        }
+                        {
+                            editingWidget.id !== widget.id &&
+                            <i onClick={() => setEditingWidget(widget)} className="fas fa-2x fa-cog float-right"/>
+                        }
+
+                        {
                             widget.type === "HEADING" &&
-                                <HeadingWidget widget={widget}/>
+                                <HeadingWidget
+                                    widget={widget}
+                                    editing={widget.id === editingWidget.id}
+                                    updateWidget={updateWidget}
+                                    setWidget={setEditingWidget}/>
                         }
                         {
                             widget.type === "PARAGRAPH" &&
-                            <ParagraphWidget widget={widget}/>
+                            <ParagraphWidget
+                                widget={widget}
+                                editing={widget.id === editingWidget.id}/>
                         }
                     </li>)
             }
@@ -41,13 +70,42 @@ const WidgetList = ({
 
     const dtpm = (dispatch) => {
         return {
-            findAllWidgets: (topicId) => {
-                widgetService.findAllWidgets(topicId)
+            findWidgetsForTopic: (topicId) => {
+                widgetService.findWidgetsForTopic(topicId)
                     .then(theWidgets => dispatch({
-                        type: "FIND_ALL_WIDGETS",
+                        type: "FIND_ALL_WIDGETS_FOR_TOPIC",
                         widgets: theWidgets
                     }))
-            }
+            },
+
+            createWidgetsForTopic: (topicId) => {
+                widgetService.createWidgetForTopic(topicId, {type: "HEADING", size: 3, text: "THIS IS NEW HEADING"})
+                    .then(newWidget => dispatch({
+                        type: "CREATE_WIDGET",
+                        newWidget
+                    }))
+            },
+
+            deleteWidget: (wid) =>
+                widgetService.deleteWidget(wid)
+                    // .then(widgetToDelete => dispatch({
+                    //     type: "DELETE_WIDGET",
+                    //     widgetToDelete
+                    // }))
+                    .then(status => dispatch({
+                        type: "DELETE_WIDGET",
+                        wid
+                    })),
+                //console.log(widgets)
+
+            updateWidget: (widget) =>
+                widgetService.updateWidget(widget)
+                    .then(status => dispatch({
+                        type: "UPDATE_WIDGET",
+                        widget
+                    }))
+
+
 
         }
     }

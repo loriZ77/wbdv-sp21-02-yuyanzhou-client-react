@@ -43,10 +43,10 @@ const CourseEditor = (
                 </Link>
                 Course Editor: {courseTitle}</h2>
             <div className="row">
-                <div className="col-4">
+                <div className="col-3">
                     <ModuleList/>
                 </div>
-                <div className="col-8">
+                <div className="col-9">
                     <div className="row">
                         <LessonTabs/>
                         <br/>
