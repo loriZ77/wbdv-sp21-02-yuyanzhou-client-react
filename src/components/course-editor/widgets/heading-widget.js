@@ -1,27 +1,61 @@
 import React, {useState} from 'react';
 import TypeDropdown from "./type-dropdown";
 
-const HeadingWidget = ({widget, editing, updateWidget}) => {
-    // const updateWidgetType = (getType) =>
-    //     set
-    const [cachedItem, setCachedItem] = useState(widget)
+const HeadingWidget = ({widget, editing, setWidget, deleteWidget, updateWidget}) => {
+
+    const [cachedWidget, setCachedWidget] = useState(widget)
     return (
         <>
             {
                 editing &&
                 <>
-                    <TypeDropdown
-                    widget={widget}/>
-                    <input
-                        //onChange={(e) => se}
-                        value={widget.text}
-                        className="form-control"/>
+                    {/*move check and delete icon here*/}
+                    <i onClick={() => {
+                        console.log(JSON.stringify(cachedWidget))
+                        updateWidget(cachedWidget.id, cachedWidget)
+                        setWidget({})
+                    }} className="fas fa-2x fa-check float-right"/>
+                    <i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>
+
+                    {/*change type using dropdown*/}
                     <select
                         onChange={(e) => {
-                            setCachedItem({...widget, size: parseInt(e.target.value)})
-                            console.log('cacheInHeading', cachedItem)
+                            console.log('current value',JSON.stringify(e.target.value))
+                            console.log("cachedWidgetBefore: " + JSON.stringify(cachedWidget))
+                            setCachedWidget({
+                                ...cachedWidget,
+                                type: e.target.value
+                            })
+                            setWidget(cachedWidget)
+                            console.log("cachedWidgetAfter: " + JSON.stringify(cachedWidget))
+                            //console.log("this is cached" + JSON.stringify(cachedWidget.type))
+                        }
+                        }
+                        value={cachedWidget.type}
+                        className="form-control">
+                        {/*send the option value to server */}
+                        <option value={"HEADING"}>Heading</option>)
+                        <option value={"PARAGRAPH"}>Paragraph</option>)
+                    </select>
+
+                    {/*change text*/}
+                    <input
+                        onChange={(e) =>
+                            setCachedWidget({
+                                ...cachedWidget,
+                                text: e.target.value
+                            })}
+                        value={cachedWidget.text}
+                        className="form-control"/>
+
+                    
+                    
+                    <select
+                        onChange={(e) => {
+                            setCachedWidget({...widget, size: parseInt(e.target.value)})
+                            console.log('cacheInHeading', cachedWidget)
                         }}
-                        value={cachedItem.size} className="form-control">
+                        value={cachedWidget.size} className="form-control">
                         {/*send the option value to server */}
                         <option value={1}>Heading 1</option>
                         <option value={2}>Heading 2</option>
@@ -37,6 +71,7 @@ const HeadingWidget = ({widget, editing, updateWidget}) => {
             {
                 !editing &&
                 <>
+
                     {widget.size === 1 && <h1>{widget.text}</h1>}
                     {widget.size === 2 && <h2>{widget.text}</h2>}
                     {widget.size === 3 && <h3>{widget.text}</h3>}

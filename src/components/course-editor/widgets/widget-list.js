@@ -29,12 +29,12 @@ const WidgetList = ({
                         {
                             editingWidget.id === widget.id &&
                                 <>
-                                    <i onClick={() => {
-                                        console.log(JSON.stringify(editingWidget))
-                                        updateWidget(widget.id, editingWidget)
-                                        setEditingWidget({})
-                                    }} className="fas fa-2x fa-check float-right"/>
-                                    <i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>
+                                    {/*<i onClick={() => {*/}
+                                    {/*    console.log(JSON.stringify(editingWidget))*/}
+                                    {/*    updateWidget(widget.id, editingWidget)*/}
+                                    {/*    setEditingWidget({})*/}
+                                    {/*}} className="fas fa-2x fa-check float-right"/>*/}
+                                    {/*<i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>*/}
                                 </>
                         }
                         {
@@ -47,7 +47,9 @@ const WidgetList = ({
                                 <HeadingWidget
                                     widget={widget}
                                     editing={widget.id === editingWidget.id}
-                                    updateWidget={updateWidget}/>
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    setWidget={setEditingWidget}/>
                         }
                         {
                             widget.type === "PARAGRAPH" &&
@@ -55,6 +57,7 @@ const WidgetList = ({
                                 widget={widget}
                                 editing={widget.id === editingWidget.id}
                                 updateWidget={updateWidget}
+                                deleteWidget={deleteWidget}
                                 setWidget={setEditingWidget}/>
                         }
                     </li>)
