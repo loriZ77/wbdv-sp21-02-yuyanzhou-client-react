@@ -1,20 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TypeDropdown from "./type-dropdown";
 
-const HeadingWidget = ({widget, editing, updateWidget, setWidget}) => {
+const HeadingWidget = ({widget, editing, updateWidget}) => {
+    // const updateWidgetType = (getType) =>
+    //     set
+    const [cachedItem, setCachedItem] = useState(widget)
     return (
         <>
             {
                 editing &&
                 <>
                     <TypeDropdown
-                    widget={widget}
-                    setWidget={setWidget}/>
+                    widget={widget}/>
                     <input
                         //onChange={(e) => se}
                         value={widget.text}
                         className="form-control"/>
-                    <select value={widget.size} className="form-control">
+                    <select
+                        onChange={(e) => {
+                            setCachedItem({...widget, size: parseInt(e.target.value)})
+                            console.log('cacheInHeading', cachedItem)
+                        }}
+                        value={cachedItem.size} className="form-control">
                         {/*send the option value to server */}
                         <option value={1}>Heading 1</option>
                         <option value={2}>Heading 2</option>

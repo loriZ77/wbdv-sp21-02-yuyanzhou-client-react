@@ -35,6 +35,7 @@ const EditableItem = (
                         value={cachedItem.title}/>
                     <i onClick={() => {
                         setEditing(false)
+                        console.log("editable" + JSON.stringify(cachedItem))
                         updateItem(cachedItem)
                     }} className="fas fa-check"/>
                     <i onClick={() => deleteItem(item)} className="fas fa-times"/>

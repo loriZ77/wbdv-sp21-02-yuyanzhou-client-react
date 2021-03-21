@@ -21,15 +21,19 @@ export const deleteWidget = (wid) =>
     })
         .then(response => response.json())
 
-export const updateWidget = (widget) =>
-    fetch(`${WIDGETS_URL}/widgets/${widget.id}`, {
+export const updateWidget = (wid, widget) => {
+    console.log("CALLED");
+    console.log(JSON.stringify(widget));
+    return fetch(`${WIDGETS_URL}/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
             'content-type': 'application/json'
         }
+
     })
-        .then(response => response.json())
+        .then(response => response.json());
+}
 
 export default {
     findWidgetsForTopic,

@@ -1,12 +1,19 @@
 import React from 'react';
+import TypeDropdown from "./type-dropdown";
 
-const ParagraphWidget = ({widget, editing}) => {
+const ParagraphWidget = ({widget, editing, updateWidget, setWidget}) => {
     return (
         <>
             {
                 editing &&
-                <textarea className="form-control"
-                          value={widget.text}/>
+                    <>
+                        <TypeDropdown
+                            widget={widget}
+                            setWidget={setWidget}/>,
+                        <textarea className="form-control"
+                                  value={widget.text}/>
+                    </>
+
             }
             {
                 !editing &&

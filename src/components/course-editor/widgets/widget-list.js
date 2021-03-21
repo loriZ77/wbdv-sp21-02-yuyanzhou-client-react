@@ -30,8 +30,8 @@ const WidgetList = ({
                             editingWidget.id === widget.id &&
                                 <>
                                     <i onClick={() => {
-
-                                        updateWidget(widget)
+                                        console.log(JSON.stringify(editingWidget))
+                                        updateWidget(widget.id, editingWidget)
                                         setEditingWidget({})
                                     }} className="fas fa-2x fa-check float-right"/>
                                     <i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>
@@ -47,14 +47,15 @@ const WidgetList = ({
                                 <HeadingWidget
                                     widget={widget}
                                     editing={widget.id === editingWidget.id}
-                                    updateWidget={updateWidget}
-                                    setWidget={setEditingWidget}/>
+                                    updateWidget={updateWidget}/>
                         }
                         {
                             widget.type === "PARAGRAPH" &&
                             <ParagraphWidget
                                 widget={widget}
-                                editing={widget.id === editingWidget.id}/>
+                                editing={widget.id === editingWidget.id}
+                                updateWidget={updateWidget}
+                                setWidget={setEditingWidget}/>
                         }
                     </li>)
             }
@@ -98,8 +99,8 @@ const WidgetList = ({
                     })),
                 //console.log(widgets)
 
-            updateWidget: (widget) =>
-                widgetService.updateWidget(widget)
+            updateWidget: (wid, widget) =>
+                widgetService.updateWidget(wid, widget)
                     .then(status => dispatch({
                         type: "UPDATE_WIDGET",
                         widget
