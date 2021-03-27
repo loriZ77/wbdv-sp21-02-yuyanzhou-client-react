@@ -4,6 +4,9 @@ import {useParams} from "react-router-dom"
 import widgetService from "../../../services/widget-service"
 import HeadingWidget from "./heading-widget";
 import ParagraphWidget from "./paragraph-widget";
+import widgetActions from "../../../actions/widget-actions";
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-list";
 
 const WidgetList = ({
     widgets=[],
@@ -26,6 +29,8 @@ const WidgetList = ({
             <ul className="list-group"> {
                 widgets.map(widget =>
                     <li className="list-group-item" key={widget.id}>
+                        {/*{editingWidget.type}*/}
+
                         {
                             editingWidget.id === widget.id &&
                                 <>
@@ -60,6 +65,27 @@ const WidgetList = ({
                                 deleteWidget={deleteWidget}
                                 setWidget={setEditingWidget}/>
                         }
+                        {
+                            widget.type === "LIST" &&
+                                <ListWidget
+                                    widget = {widget}
+                                    editing={widget.id === editingWidget.id}
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    setWidget={setEditingWidget}
+                                />
+                        }
+                        {
+                            widget.type === "IMAGE" &&
+                            <ImageWidget
+                                widget = {widget}
+                                editing={widget.id === editingWidget.id}
+                                updateWidget={updateWidget}
+                                deleteWidget={deleteWidget}
+                                setWidget={setEditingWidget}
+
+                            />
+                        }
                     </li>)
             }
 
@@ -74,42 +100,25 @@ const WidgetList = ({
 
     const dtpm = (dispatch) => {
         return {
+
             findWidgetsForTopic: (topicId) => {
-                widgetService.findWidgetsForTopic(topicId)
-                    .then(theWidgets => dispatch({
-                        type: "FIND_ALL_WIDGETS_FOR_TOPIC",
-                        widgets: theWidgets
-                    }))
+                widgetActions.findWidgetsForTopic(dispatch, topicId)
             },
 
             createWidgetsForTopic: (topicId) => {
-                widgetService.createWidgetForTopic(topicId, {type: "HEADING", size: 3, text: "THIS IS NEW HEADING"})
-                    .then(newWidget => dispatch({
-                        type: "CREATE_WIDGET",
-                        newWidget
-                    }))
+                widgetActions.createWidgetsForTopic(dispatch, topicId)
             },
 
             deleteWidget: (wid) =>
-                widgetService.deleteWidget(wid)
+                widgetActions.deleteWidget(dispatch, wid),
                     // .then(widgetToDelete => dispatch({
                     //     type: "DELETE_WIDGET",
                     //     widgetToDelete
                     // }))
-                    .then(status => dispatch({
-                        type: "DELETE_WIDGET",
-                        wid
-                    })),
                 //console.log(widgets)
 
             updateWidget: (wid, widget) =>
-                widgetService.updateWidget(wid, widget)
-                    .then(status => dispatch({
-                        type: "UPDATE_WIDGET",
-                        widget
-                    }))
-
-
+                widgetActions.updateWidget(dispatch, wid, widget)
 
         }
     }

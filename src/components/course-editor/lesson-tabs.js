@@ -1,11 +1,11 @@
 import React, {useEffect}from 'react'
 import {connect} from 'react-redux'
 import EditableItem from "../editable-item";
-import {useParams} from "react-router-dom"
+import {useParams} from "react-router-dom";
 import lessonService from "../../services/lesson-service"
 import moduleService from "../../services/module-service";
 import topicService from "../../services/topic-service";
-
+import lessonActions from "../../actions/lesson-actions"
 const LessonTabs = (
     {
         lessons=[
@@ -56,37 +56,21 @@ const stpm = (state) => ({
 const dtpm = (dispatch) => {
     return {
         findLessonsForModule: (moduleId) => {
-            lessonService.findLessonsForModule(moduleId)
-                .then(lessons=> dispatch({
-                    type: "FIND_LESSONS",
-                    lessons: lessons
-                }))
+            lessonActions.findLessonsForModule(dispatch, moduleId)
 
             topicService.findTopicsForLesson(undefined)
                 .then(topics => dispatch({type: "FIND_TOPICS", topics: topics}))
         },
         createLessonForModule: (moduleId)=> {
-            lessonService.createLessonForModule(moduleId, {title: "New Lesson"})
-                .then(theActualLesson => dispatch({
-                    type: "CREATE_LESSON",
-                    lesson: theActualLesson
-                }))
+            lessonActions.createLessonForModule(dispatch, moduleId)
 
         },
 
         deleteLesson: (item) =>
-            lessonService.deleteLessonForModule(item._id)
-                .then(status => dispatch({
-                    type: "DELETE_LESSON",
-                    lessonToDelete: item
-                })),
+            lessonActions.deleteLesson(dispatch, item),
 
         updateLesson: (lesson) =>
-            lessonService.updateLessonForModule(lesson._id, lesson)
-                .then(status => dispatch({
-                    type: "UPDATE_LESSON",
-                    lesson: lesson
-                }))
+            lessonActions.updateLesson(dispatch, lesson)
     }
 }
 

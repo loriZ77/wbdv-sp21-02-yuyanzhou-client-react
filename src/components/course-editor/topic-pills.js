@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom"
 import topicService from "../../services/topic-service"
+import topicActions from "../../actions/topic-actions";
 
 const TopicPills = (
     {
@@ -52,36 +53,18 @@ const stpm = (state) => ({
 const dtpm = (dispatch) => {
     return {
         findTopicsForLesson: (lessonId) => {
-            topicService.findTopicsForLesson(lessonId)
-                .then(topics => dispatch({
-                    type: "FIND_TOPICS",
-                    topics: topics
-                }))
+            topicActions.findTopicsForLesson(dispatch, lessonId)
         },
 
         createTopicForLesson: (lessonId) => {
-            topicService.createTopicForLesson(lessonId, {title: "New Topic"})
-                .then(theTopic => dispatch({
-                    type: "CREATE_TOPIC",
-                    topic: theTopic
-                }))
-
-
+            topicActions.createTopicForLesson(dispatch, lessonId)
         },
 
         updateTopic: (topic) =>
-            topicService.updateTopicForLesson(topic._id, topic)
-                .then(status => dispatch({
-                    type: "UPDATE_TOPIC",
-                    topic
-                })),
+            topicActions.updateTopic(dispatch, topic),
 
         deleteTopic: (topicToDelete) =>
-            topicService.deleteTopicFoeLesson(topicToDelete._id)
-                .then(status => dispatch({
-                    type: "DELETE_TOPIC",
-                    topicToDelete
-                }))
+            topicActions.deleteTopic(dispatch, topicToDelete)
     }
 }
 export default connect(stpm, dtpm)(TopicPills)

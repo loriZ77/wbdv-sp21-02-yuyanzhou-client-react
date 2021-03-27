@@ -9,6 +9,9 @@ const HeadingWidget = ({widget, editing, setWidget, deleteWidget, updateWidget})
             {
                 editing &&
                 <>
+                     {/*<TypeDropdown*/}
+                     {/*widget={widget}*/}
+                     {/*setWidget={setWidget}/>*/}
                     {/*move check and delete icon here*/}
                     <i onClick={() => {
                         console.log(JSON.stringify(cachedWidget))

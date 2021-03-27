@@ -1,15 +1,17 @@
+import {FIND_ALL_WIDGETS_FOR_TOPIC, DELETE_WIDGET, CREATE_WIDGET, UPDATE_WIDGET} from "../actions/widget-actions";
+
 const initialState = {
     widgets: []
 }
 
 const widgetReducer = (state = initialState, action) => {
     switch(action.type) {
-        　case "FIND_ALL_WIDGETS_FOR_TOPIC":
+        　case FIND_ALL_WIDGETS_FOR_TOPIC:
             return {
                 ...state,
                 widgets: action.widgets
             }
-        case "CREATE_WIDGET":
+        case CREATE_WIDGET:
             return {
                 ...state,
                 widgets: [
@@ -17,7 +19,7 @@ const widgetReducer = (state = initialState, action) => {
                     action.newWidget
                 ]
             }
-        case "DELETE_WIDGET":
+        case DELETE_WIDGET:
             return {
                 widgets: state.widgets.filter(widget => {
                     if(widget.id === action.wid) {
@@ -28,7 +30,7 @@ const widgetReducer = (state = initialState, action) => {
                 })
             }
 
-        case "UPDATE_WIDGET":
+        case UPDATE_WIDGET:
             return {
                 widgets: state.widgets.map(w => {
                     if (w.id === action.widget.id) {

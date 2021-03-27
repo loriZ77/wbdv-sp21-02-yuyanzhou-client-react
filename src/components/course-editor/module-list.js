@@ -5,6 +5,10 @@ import {useParams} from "react-router-dom"
 import moduleService from "../../services/module-service"
 import lessonService from "../../services/lesson-service"
 import topicService from "../../services/topic-service"
+import moduleActions from "../../actions/module-actions";
+import lessonActions from "../../actions/lesson-actions";
+import topicActions from "../../actions/topic-actions";
+
 
 const ModuleList = (
     {
@@ -51,28 +55,15 @@ const stpm = (state) => {
 
 const dtpm = (dispatch) => {
     return {
-        createModule: (courseId) => {
-            moduleService.createModuleForCourse(courseId, {title: "New Module"})
-                .then(theActualModule => dispatch({
-                    type: "CREATE_MODULE",
-                    module: theActualModule
-                }))
-        },
+        createModule: (courseId) =>
+            moduleActions.createModule(dispatch, courseId),
 
 
         deleteModule: (item) =>
-            moduleService.deleteModulesForCourse(item._id)
-                .then(status => dispatch({
-                    type: "DELETE_MODULE",
-                    moduleToDelete: item
-                })),
+            moduleActions.deleteModule(dispatch, item),
 
         updateModule: (module) =>
-            moduleService.updateModuleForCourse(module._id, module)
-                .then(status => dispatch({
-                    type: "UPDATE_MODULE",
-                    module
-                })),
+            moduleActions.updateModule(dispatch, module),
 
         // findModulesForCourse: (courseId) => {
         //     //alert(courseId);
@@ -83,12 +74,10 @@ const dtpm = (dispatch) => {
         //         }))
         // }
         findModulesForCourse: (courseId) => {
-            moduleService.findModulesForCourse(courseId)
-                .then(modules => dispatch({type: "FIND_MODULES_FOR_COURSE", modules: modules}))
-            lessonService.findLessonsForModule(undefined)
-                .then(lessons => dispatch({type: "FIND_LESSONS", lessons: lessons}))
-            topicService.findTopicsForLesson(undefined)
-                .then(topics => dispatch({type: "FIND_TOPICS", topics: topics}))
+            moduleActions.findModulesForCourse(dispatch, courseId)
+            lessonActions.findLessonsForModule(dispatch,undefined)
+            topicActions.findTopicsForLesson(dispatch,undefined)
+
         }
     }
 }

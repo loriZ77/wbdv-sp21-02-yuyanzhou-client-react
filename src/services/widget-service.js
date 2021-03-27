@@ -22,8 +22,8 @@ export const deleteWidget = (wid) =>
         .then(response => response.json())
 
 export const updateWidget = (wid, widget) => {
-    console.log("CALLED");
-    console.log(JSON.stringify(widget));
+    // console.log("CALLED");
+    // console.log(JSON.stringify(widget));
     return fetch(`${WIDGETS_URL}/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
