@@ -17,7 +17,6 @@ const TypeDropdown = ({widget,updateWidget, setWidget}) => {
                     type: type
                 }
                 setCachedItem(newWidget)
-
                 setWidget(newWidget)
                 //console.log("cachedItemAfter: " + JSON.stringify(cachedItem))
                 console.log("this is cached" + JSON.stringify(cachedItem.type))
@@ -26,11 +25,13 @@ const TypeDropdown = ({widget,updateWidget, setWidget}) => {
             value={cachedItem.type}
             className="form-control">
             {/*send the option value to server */}
-            <option value={"HEADING"}>Heading</option>)
-            <option value={"PARAGRAPH"}>Paragraph</option>)
+            <option value={"HEADING"}>Heading</option>
+            <option value={"PARAGRAPH"}>Paragraph</option>
+            <option value={"IMAGE"}>Image</option>
+            <option value={"LIST"}>List</option>)
         </select>
 
-            {cachedItem.type}
+            {/*{cachedItem.type}*/}
             </>
     )
 }

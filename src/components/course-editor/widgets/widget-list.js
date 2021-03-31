@@ -40,6 +40,11 @@ const WidgetList = ({
                                     {/*    setEditingWidget({})*/}
                                     {/*}} className="fas fa-2x fa-check float-right"/>*/}
                                     {/*<i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>*/}
+                                    <i onClick={() => {
+                                        updateWidget(editingWidget.id, editingWidget)
+                                        setEditingWidget({})
+                                    }} className="fas fa-2x fa-check float-right"/>
+                                    <i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>
                                 </>
                         }
                         {
