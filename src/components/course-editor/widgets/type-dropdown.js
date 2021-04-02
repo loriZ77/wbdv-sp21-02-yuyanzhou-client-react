@@ -1,28 +1,32 @@
 import React, {useState} from 'react'
 import {updateWidget} from "../../../services/widget-service";
+import HeadingWidget from "./heading-widget";
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-list";
+import ParagraphWidget from "./paragraph-widget";
 
-const TypeDropdown = ({widget,updateWidget, setWidget}) => {
+const TypeDropdown = ({widget,updateWidget, setWidget, editing}) => {
     // console.log("widget passed in: " + JSON.stringify(widget))
     // console.log("widget passed in: after" )
-    const[cachedItem, setCachedItem] = useState(widget)
+    const[cachedWidget, setCachedWidget] = useState(widget)
     return (
         <>
         <select
             onChange={(e) => {
                 const type = e.target.value
                 console.log('target value',JSON.stringify(e.target.value))
-                //console.log("cachedItem: " + JSON.stringify(cachedItem))
+                //console.log("cachedWidget: " + JSON.stringify(cachedWidget))
                 const newWidget = {
-                    ...cachedItem,
+                    ...cachedWidget,
                     type: type
                 }
-                setCachedItem(newWidget)
+                setCachedWidget(newWidget)
                 setWidget(newWidget)
-                //console.log("cachedItemAfter: " + JSON.stringify(cachedItem))
-                console.log("this is cached" + JSON.stringify(cachedItem.type))
+                //console.log("cachedWidgetAfter: " + JSON.stringify(cachedWidget))
+                console.log("this is cached" + JSON.stringify(cachedWidget.type))
             }
             }
-            value={cachedItem.type}
+            value={cachedWidget.type}
             className="form-control">
             {/*send the option value to server */}
             <option value={"HEADING"}>Heading</option>
@@ -31,8 +35,7 @@ const TypeDropdown = ({widget,updateWidget, setWidget}) => {
             <option value={"LIST"}>List</option>)
         </select>
 
-            {/*{cachedItem.type}*/}
-            </>
+        </>
     )
 }
 

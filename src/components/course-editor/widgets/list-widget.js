@@ -9,10 +9,10 @@ const ListWidget = ({widget, editing, updateWidget, deleteWidget, setWidget}) =>
 
                 editing &&
                     <>
-                        <TypeDropdown
-                        widget={widget}
-                        updateWidget={updateWidget}
-                        setWidget={setWidget}/>
+                        {/*<TypeDropdown*/}
+                        {/*widget={widget}*/}
+                        {/*updateWidget={updateWidget}*/}
+                        {/*setWidget={setWidget}/>*/}
                         {/*<i onClick={() => {*/}
                         {/*    console.log("clicked: " + cachedWidget.ordered)*/}
                         {/*    updateWidget(cachedWidget.id, cachedWidget)*/}

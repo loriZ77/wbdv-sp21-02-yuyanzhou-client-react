@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import TypeDropdown from "./type-dropdown";
+import HeadingWidget from "./heading-widget";
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-list";
 
 const ParagraphWidget = ({widget, editing, deleteWidget, updateWidget, setWidget}) => {
     const [cachedWidget, setCachedWidget] = useState(widget)
@@ -9,14 +12,17 @@ const ParagraphWidget = ({widget, editing, deleteWidget, updateWidget, setWidget
             {
                 editing &&
                     <>
-                        <TypeDropdown
-                            widget={widget}
-                            updateWidget={updateWidget}
-                            setWidget={setWidget}/>
+                        {/*<TypeDropdown*/}
+                        {/*    widget={widget}*/}
+                        {/*    updateWidget={updateWidget}*/}
+                        {/*    setWidget={setWidget}*/}
+                        {/*    editing = {editing}/>*/}
 
                         {/*change text*/}
                         <textarea
                             onChange={(e) => {
+                                // console.log("target: " + e.target.value)
+                                // console.log("original: " + widget.text)
                                 const newWidget = {
                                     ...cachedWidget,
                                     text: e.target.value
@@ -31,11 +37,13 @@ const ParagraphWidget = ({widget, editing, deleteWidget, updateWidget, setWidget
                             }
                             }
                             // value={widget.text}
+
                             value={cachedWidget.text}
                             className="form-control"/>
                         {/*<TypeDropdown*/}
                         {/*    widget={widget}*/}
                         {/*    setWidget={setWidget}/>,*/}
+
                     </>
 
             }

@@ -18,10 +18,10 @@ const ImageWidget = ({widget, editing, setWidget, deleteWidget, updateWidget}) =
 
                 editing &&
                     <>
-                        <TypeDropdown
-                            widget={widget}
-                            updateWidget={updateWidget}
-                            setWidget={setWidget}/>
+                        {/*<TypeDropdown*/}
+                        {/*    widget={widget}*/}
+                        {/*    updateWidget={updateWidget}*/}
+                        {/*    setWidget={setWidget}/>*/}
                         {/*<i onClick={() => {*/}
                         {/*    updateWidget(cachedWidget.id, cachedWidget)*/}
                         {/*    setWidget({})*/}

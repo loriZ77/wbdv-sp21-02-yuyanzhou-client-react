@@ -16,9 +16,9 @@ const WidgetList = ({
     createWidgetsForTopic
                     }) => {
     const [editingWidget, setEditingWidget] = useState({});
+    const [widget, setWidget] = useState({});
     const {topicId} = useParams();
     useEffect(() => {
-        console.log("widgets" + widgets);
         findWidgetsForTopic(topicId)
 
     }, [topicId])
@@ -45,21 +45,54 @@ const WidgetList = ({
                                         setEditingWidget({})
                                     }} className="fas fa-2x fa-check float-right"/>
                                     <i onClick={() => deleteWidget(widget.id)} className="fas fa-2x fa-trash float-right"/>
+                                    {widget.type}
+                                    <select
+                                        onChange={(e) => {
+                                            const newType = e.target.value
+                                            const newWidget = {
+                                                ...widget,
+                                                type: newType
+                                            }
+                                            console.log('target value',JSON.stringify(e.target.value))
+                                            setEditingWidget(widget => ({...widget, type: e.target.value}))
+                                            // setEditingWidget(newWidget)
+
+                                            console.log('editing: ', JSON.stringify(editingWidget.type))
+                                            console.log("widget: " + JSON.stringify(widget.type))
+                                            setWidget(newWidget)
+                                            widget.type = newType
+                                            console.log("after click, widget: " + JSON.stringify(widget.type))
+                                            //console.log("this is cached" + JSON.stringify(cachedWidget.type))
+                                            }
+                                        }
+                                        value={editingWidget.type}
+                                        className="form-control">
+                                        {/*send the option value to server */}
+                                        <option value={"HEADING"}>Heading</option>
+                                        <option value={"PARAGRAPH"}>Paragraph</option>
+                                        <option value={"IMAGE"}>Image</option>
+                                        <option value={"LIST"}>List</option>)
+                                    </select>
+
                                 </>
                         }
                         {
                             editingWidget.id !== widget.id &&
-                            <i onClick={() => setEditingWidget(widget)} className="fas fa-2x fa-cog float-right"/>
+                            <i onClick={() => {
+                                setEditingWidget(widget)
+                                setWidget(widget)
+                                //console.log(JSON.stringify(widget))
+                            }} className="fas fa-2x fa-cog float-right"/>
                         }
 
                         {
                             widget.type === "HEADING" &&
-                                <HeadingWidget
-                                    widget={widget}
-                                    editing={widget.id === editingWidget.id}
-                                    updateWidget={updateWidget}
-                                    deleteWidget={deleteWidget}
-                                    setWidget={setEditingWidget}/>
+                            <HeadingWidget
+                                widget={widget}
+                                editing={widget.id === editingWidget.id}
+                                updateWidget={updateWidget}
+                                deleteWidget={deleteWidget}
+                                setWidget={setEditingWidget}/>
                         }
                         {
                             widget.type === "PARAGRAPH" &&
