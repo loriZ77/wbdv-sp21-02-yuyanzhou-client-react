@@ -1,9 +1,4 @@
 import React, {useState} from 'react'
-import {updateWidget} from "../../../services/widget-service";
-import HeadingWidget from "./heading-widget";
-import ListWidget from "./list-widget";
-import ImageWidget from "./image-list";
-import ParagraphWidget from "./paragraph-widget";
 
 const TypeDropdown = ({widget,updateWidget, setWidget, editing}) => {
     // console.log("widget passed in: " + JSON.stringify(widget))
