@@ -52,13 +52,13 @@ const Question = ({question}) => {
                     setIsGraded={setIsGraded}/>
             }
             <p>Your answer: {yourAnswer}</p>
-            <button
-                onClick={() => {
-                    grade()
-                    setIsCorrect(yourAnswer === question.correct)
-                }}
-                type="button"
-                className="btn btn-success">Grade</button>
+            {/*<button*/}
+            {/*    onClick={() => {*/}
+            {/*        grade()*/}
+            {/*        setIsCorrect(yourAnswer === question.correct)*/}
+            {/*    }}*/}
+            {/*    type="button"*/}
+            {/*    className="btn btn-success">Grade</button>*/}
 
         </div>
 
