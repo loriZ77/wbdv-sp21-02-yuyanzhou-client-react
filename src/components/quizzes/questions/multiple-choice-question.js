@@ -15,7 +15,7 @@ const MultipleChoiceQuestion = ({question, yourAnswer, setYourAnswer, isGraded, 
             <ul className="list-group">
                 {
                     question.choices.map((choice) => {
-                        console.log("your answer in multi: " + yourAnswer)
+                        //console.log("your answer in multi: " + yourAnswer)
 
                         return (
                             <>
@@ -26,6 +26,7 @@ const MultipleChoiceQuestion = ({question, yourAnswer, setYourAnswer, isGraded, 
                                 <label>
                                     <input
                                         onClick={() => {
+                                            question.answer = choice
                                             setYourAnswer(choice)
                                             setIsGraded(false) //after clicking the choice, reset the isGraded state
                                         }}

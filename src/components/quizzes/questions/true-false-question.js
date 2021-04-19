@@ -14,6 +14,7 @@ const TrueFalseQuestion = ({question, yourAnswer, setYourAnswer, isCorrect, isGr
                     <label>
                         <input
                             onClick={() => {
+                                question.answer = "true"
                                 setYourAnswer(TRUE)
                                 setIsGraded(false)
                             }}
@@ -32,6 +33,7 @@ const TrueFalseQuestion = ({question, yourAnswer, setYourAnswer, isCorrect, isGr
                     <label>
                         <input
                             onClick={() => {
+                                question.answer = "false"
                                 setYourAnswer(FALSE)
                                 setIsGraded(false)
                             }}

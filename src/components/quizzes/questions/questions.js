@@ -1,28 +1,18 @@
 import React, {useState, useEffect} from 'react'
+import {useParams} from "react-router-dom"
 import TrueFalseQuestion from "./true-false-question";
 import MultipleChoiceQuestion from "./multiple-choice-question";
+import quizService from '../../../services/quiz-service'
 
 const Question = ({question}) => {
+    const {quizId} = useParams();
     const [yourAnswer, setYourAnswer] = useState("")
     const [isGraded, setIsGraded] = useState(false)
     const [isCorrect, setIsCorrect] = useState(false)
     const grade = (yourAnswer) => {
         setIsGraded(true)
-        return (
-
-            <>
-            {/*{*/}
-            {/*    question.correct === yourAnswer &&*/}
-            {/*    <i className="fas fa-check color-green float-right"/>*/}
-            {/*}*/}
-            {/*see me?*/}
-            {/*{*/}
-            {/*    question.correct !== yourAnswer &&*/}
-            {/*    <i className="fas fa-times color-red float-right"/>*/}
-            {/*}*/}
-            </>)
         setIsCorrect(false)
-        setYourAnswer("")
+        setYourAnswer([])
         console.log(question.correct)
 
     }
@@ -69,6 +59,7 @@ const Question = ({question}) => {
                 }}
                 type="button"
                 className="btn btn-success">Grade</button>
+
         </div>
 
     )
