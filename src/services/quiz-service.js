@@ -4,7 +4,7 @@ export const findAllQuizzes = () => {
     return fetch(QUIZZES_URL)
         .then(response => response.json())
 }
-export const submitQuiz = (quizId, questions) => {
+export const submitQuiz = (quizId, questions) =>
     fetch(`${QUIZZES_URL}/${quizId}/attempts`, {
         method: 'POST',
         body: JSON.stringify(questions),
@@ -12,10 +12,10 @@ export const submitQuiz = (quizId, questions) => {
             'content-type': 'application/json'
         }
     }).then(response => response.json())
-        .then(result => console.log(result))
-}
+        //.then(result => console.log(result))
 
-export const scoreQuiz = (quizId) =>
+
+export const findAllAttempts = (quizId) =>
     fetch(`${QUIZZES_URL}/${quizId}/attempts`)
         .then(response => response.json())
 
@@ -23,5 +23,5 @@ export const scoreQuiz = (quizId) =>
 export default {
     findAllQuizzes,
     submitQuiz,
-    scoreQuiz
+    findAllAttempts
 }

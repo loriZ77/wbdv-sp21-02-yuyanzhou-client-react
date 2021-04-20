@@ -7,29 +7,47 @@ import quizService from "../../services/quiz-service";
 
 const Quiz = () => {
     const {quizId} = useParams();
-    const[questions, setQuestions] = useState([])
+    const [questions, setQuestions] = useState([])
+    //const attempts = []
     const[attempts, setAttempts] = useState([])
     const[scored, setScored] = useState(false)
 
-    const score = () => {
-        quizService.scoreQuiz(quizId)
-            .then((attempts) => {
-                //console.log(JSON.stringify(attempts))
-                setAttempts(attempts)
-                }
-            )
+    const score = (quizId, questions) => {
+        quizService.submitQuiz(quizId, questions)
+            .then((att) => {
+                setAttempts([...attempts, att])
+                console.log("array: " + JSON.stringify(attempts))
+
+            })
+
+        // quizService.findAllAttempts(quizId)
+        //     .then((attempts) => {
+        //         //console.log(JSON.stringify(attempts))
+        //         setAttempts(attempts)
+        //         }
+        //     )
+    }
+    const findAttempts = (quizId) => {
+        quizService.findAllAttempts(quizId)
+            .then((results) => {
+                setAttempts(results)
+            })
     }
     const findAllQuestion = (quizId) => {
         questionService.findQuestionsForQuiz(quizId)
             .then((questions) => {
                 setQuestions(questions)
-                console.log(JSON.stringify(questions))
             })
     }
 
     useEffect(() => {
         findAllQuestion(quizId)
+
     }, [quizId])
+
+    // useEffect(() => {
+    //     findAttempts(quizId)
+    // } , [len])
     return (
         <div>
             <h2>Quiz {quizId} {questions.length}</h2>
@@ -53,10 +71,9 @@ const Quiz = () => {
             </ul>
             <button
                 onClick={() => {
-                    //console.log(JSON.stringify(questions.answer))
-                    quizService.submitQuiz(quizId, questions)
+                    score(quizId, questions)
                     setScored(true)
-                    score()
+                    findAttempts(quizId)
                 }}
                 type="button"
                 className="btn btn-primary">Submit</button>
@@ -67,12 +84,15 @@ const Quiz = () => {
                 Your Scores:
                     <ol className="list-group">
                         {
+
                             attempts.map((attempt) => {
+                                console.log(JSON.stringify(attempt))
                                 return (
                                     <li className="list-group-item">{attempt.score}</li>
                                 )
 
                             })
+
                         }
                     </ol>
                 </>
