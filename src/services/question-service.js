@@ -1,4 +1,4 @@
-const QUIZZES_URL = 'http://localhost:3001/api/quizzes'
+const QUIZZES_URL = 'https://wbdv-yuyanzhou-nodejs.herokuapp.com/api/quizzes'
 
 const findQuestionsForQuiz = (quizId) =>
     fetch(`${QUIZZES_URL}/${quizId}/questions`)

@@ -1,11 +1,11 @@
-const QUIZZES_URL = 'http://localhost:3001/api/quizzes'
+const QUIZZES_URL = 'https://wbdv-yuyanzhou-nodejs.herokuapp.com/api/quizzes'
 
 export const findAllQuizzes = () => {
     return fetch(QUIZZES_URL)
         .then(response => response.json())
 }
 export const submitQuiz = (quizId, questions) => {
-    fetch(`http://localhost:3001/api/quizzes/${quizId}/attempts`, {
+    fetch(`${QUIZZES_URL}/${quizId}/attempts`, {
         method: 'POST',
         body: JSON.stringify(questions),
         headers: {
@@ -16,7 +16,7 @@ export const submitQuiz = (quizId, questions) => {
 }
 
 export const scoreQuiz = (quizId) =>
-    fetch(`http://localhost:3001/api/quizzes/${quizId}/attempts`)
+    fetch(`${QUIZZES_URL}/${quizId}/attempts`)
         .then(response => response.json())
 
 
